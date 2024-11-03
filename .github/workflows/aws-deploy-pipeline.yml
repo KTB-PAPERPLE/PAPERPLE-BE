@@ -10,17 +10,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. 서브모듈 접근을 위한 SSH 에이전트 시작 및 SSH_KEY_CONFIG 추가
+      # 1. SSH 에이전트 시작 및 서브모듈 접근을 위한 SSH_KEY_CONFIG 추가
       - name: Start SSH agent for submodules
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_KEY_CONFIG }}
 
-      # 2. 코드 및 서브모듈 체크아웃
+      # 2. 코드 및 서브모듈 체크아웃 (동일한 SSH 키 설정을 유지하는 작업)
       - name: Check out code with submodules
         uses: actions/checkout@v2
         with:
-          submodules: true  # 서브모듈 포함
+          submodules: recursive # 모든 서브모듈을 포함하여 가져오기
+          fetch-depth: 0 # 전체 히스토리를 가져와 신뢰성을 높임
 
       # 3. Java 설정
       - name: Set up Java
