@@ -31,7 +31,7 @@ jobs:
 
       # 4. 빌드 후 JAR 파일 존재 여부 확인
       - name: Verify JAR file exists
-        run: ls /home/ec2-user/PAPERPLE-BE/build/libs/
+        run: ls build/libs/
 
       # 5. EC2 서버로 배포
       - name: Deploy to EC2
