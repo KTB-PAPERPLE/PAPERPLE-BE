@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. SSH 에이전트 시작 및 SSH 키 추가
-      - name: Start SSH agent
+      # 1. 서브모듈 접근을 위한 SSH 에이전트 시작 및 SSH_KEY_CONFIG 추가
+      - name: Start SSH agent for submodules
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{ secrets.SSH_KEY }}
+          ssh-private-key: ${{ secrets.SSH_KEY_CONFIG }}
 
       # 2. 코드 및 서브모듈 체크아웃
       - name: Check out code with submodules
