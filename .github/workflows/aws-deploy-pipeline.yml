@@ -10,30 +10,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. SSH 에이전트 시작 및 서브모듈 접근을 위한 SSH_KEY_CONFIG 추가
-      - name: Start SSH agent for submodules
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.SSH_KEY_CONFIG }}
-
-      # 2. 코드 및 서브모듈 체크아웃 (동일한 SSH 키 설정을 유지하는 작업)
+      # 1. 코드 및 서브모듈 체크아웃
       - name: Check out code with submodules
         uses: actions/checkout@v2
         with:
-          submodules: recursive # 모든 서브모듈을 포함하여 가져오기
-          fetch-depth: 0 # 전체 히스토리를 가져와 신뢰성을 높임
+          submodules: recursive  # 모든 서브모듈 포함하여 가져오기
+          fetch-depth: 0         # 전체 히스토리 가져오기
+          token: ${{ secrets.GH_TOKEN }}
 
-      # 3. Java 설정
+      # 2. Java 설정
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
           java-version: '17'
 
-      # 4. 프로젝트 빌드
+      # 3. 프로젝트 빌드
       - name: Build with Gradle
         run: ./gradlew clean build
 
-      # 5. EC2 서버로 배포
+      # 4. EC2 서버로 배포
       - name: Deploy to EC2
         env:
           EC2_HOST: ${{ secrets.EC2_HOST }}
