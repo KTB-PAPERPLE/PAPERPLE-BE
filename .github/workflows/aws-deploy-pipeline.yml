@@ -29,7 +29,11 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
 
-      # 4. EC2 서버로 배포
+      # 4. 빌드 후 JAR 파일 존재 여부 확인
+      - name: Verify JAR file exists
+        run: ls /home/ec2-user/PAPERPLE-BE/build/libs/
+
+      # 5. EC2 서버로 배포
       - name: Deploy to EC2
         env:
           EC2_HOST: ${{ secrets.EC2_HOST }}
@@ -41,8 +45,8 @@ jobs:
           echo "$SSH_KEY" > ssh_key.pem
           chmod 600 ssh_key.pem
           
-          # EC2 서버에 JAR 파일 업로드
-          scp -i ssh_key.pem -o StrictHostKeyChecking=no build/libs/*.jar $EC2_USER@$EC2_HOST:/home/$EC2_USER/app.jar
+          # EC2 서버에 JAR 파일 업로드 (정확한 JAR 파일 경로 사용)
+          scp -i ssh_key.pem -o StrictHostKeyChecking=no /home/ec2-user/PAPERPLE-BE/build/libs/PAPERPLE-BE-0.0.1-SNAPSHOT.jar $EC2_USER@$EC2_HOST:/home/$EC2_USER/app.jar
           
           # EC2 서버에 SSH로 접속하여 애플리케이션 재시작
           ssh -i ssh_key.pem -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST << 'EOF'
