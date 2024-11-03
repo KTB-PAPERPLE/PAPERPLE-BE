@@ -52,7 +52,7 @@ jobs:
           ssh -i ssh_key.pem -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST << 'EOF'
             # 최신 코드 반영
             cd /home/$EC2_USER/PAPERPLE-BE
-            git pull
+            git pull origin main
           
             # 기존 프로세스 종료 및 새로 실행
             pkill -f '/home/$EC2_USER/app.jar' || true
