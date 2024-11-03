@@ -25,15 +25,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # 3. 프로젝트 빌드
-      - name: Build with Gradle
-        run: ./gradlew clean build
-
-      # 4. 빌드 후 JAR 파일 존재 여부 확인
-      - name: Verify JAR file exists
-        run: ls build/libs/
-
-      # 5. EC2 서버로 배포
+      # 3. EC2 서버로 배포
       - name: Deploy to EC2
         env:
           EC2_HOST: ${{ secrets.EC2_HOST }}
@@ -45,18 +37,20 @@ jobs:
           echo "$SSH_KEY" > ssh_key.pem
           chmod 600 ssh_key.pem
           
-          # EC2 서버에 JAR 파일 업로드 (GitHub Actions 빌드 디렉토리에서 파일 전송)
-          scp -i ssh_key.pem -o StrictHostKeyChecking=no build/libs/PAPERPLE-BE-0.0.1-SNAPSHOT.jar $EC2_USER@$EC2_HOST:/home/$EC2_USER/app.jar
-          
-          # EC2 서버에 SSH로 접속하여 애플리케이션 재시작 및 최신 코드 반영
+          # EC2 서버에 SSH로 접속하여 애플리케이션 업데이트 및 빌드
           ssh -i ssh_key.pem -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST << 'EOF'
-            # 최신 코드 반영
+            # 작업 디렉토리로 이동
             cd /home/$EC2_USER/PAPERPLE-BE
+          
+            # 최신 코드 반영
             git pull origin main
+          
+            # 프로젝트 빌드
+            ./gradlew clean build
           
             # 기존 프로세스 종료 및 새로 실행
             pkill -f '/home/$EC2_USER/app.jar' || true
-            nohup java -jar /home/$EC2_USER/app.jar > /home/$EC2_USER/app.log 2>&1 &
+            nohup java -jar /home/$EC2_USER/PAPERPLE-BE/build/libs/PAPERPLE-BE-0.0.1-SNAPSHOT.jar > /home/$EC2_USER/app.log 2>&1 &
           EOF
           
           # SSH 키 삭제
