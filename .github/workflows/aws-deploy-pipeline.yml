@@ -48,10 +48,14 @@ jobs:
           # EC2 서버에 JAR 파일 업로드 (GitHub Actions 빌드 디렉토리에서 파일 전송)
           scp -i ssh_key.pem -o StrictHostKeyChecking=no build/libs/PAPERPLE-BE-0.0.1-SNAPSHOT.jar $EC2_USER@$EC2_HOST:/home/$EC2_USER/app.jar
           
-          # EC2 서버에 SSH로 접속하여 애플리케이션 재시작
+          # EC2 서버에 SSH로 접속하여 애플리케이션 재시작 및 최신 코드 반영
           ssh -i ssh_key.pem -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST << 'EOF'
+            # 최신 코드 반영
+            cd /home/$EC2_USER/PAPERPLE-BE
+            git pull
+          
             # 기존 프로세스 종료 및 새로 실행
-            pkill -f 'java -jar' || true
+            pkill -f '/home/$EC2_USER/app.jar' || true
             nohup java -jar /home/$EC2_USER/app.jar > /home/$EC2_USER/app.log 2>&1 &
           EOF
           
