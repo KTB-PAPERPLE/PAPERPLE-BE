@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public class UserNicknameRequest {
-    @NotBlank
-    @Size(min = 1, max = 30)
-    private String nickname;
+  @NotBlank
+  @Size(min = 1, max = 30)
+  private String nickname;
 }

@@ -14,40 +14,36 @@ import lombok.Getter;
 @Getter
 public class PaperLike {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "paper_id")
-    private Paper paper;
+  @ManyToOne
+  @JoinColumn(name = "paper_id")
+  private Paper paper;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+  @ManyToOne
+  @JoinColumn(name = "user_id", nullable = false)
+  private User user;
 
-    @Builder
-    public PaperLike(Paper paper, User user
-    ) {
-        this.paper = paper;
-        this.user = user;
-        assignPaper(paper);
-    }
+  @Builder
+  public PaperLike(Paper paper, User user) {
+    this.paper = paper;
+    this.user = user;
+    assignPaper(paper);
+  }
 
-    public PaperLike() {
+  public PaperLike() {}
 
-    }
+  public void assignPaper(Paper paper) {
+    this.paper = paper;
+  }
 
-    public void assignPaper(Paper paper) {
-        this.paper = paper;
-    }
+  public void removePaper() {
+    this.paper = null;
+  }
 
-    public void removePaper() {
-        this.paper = null;
-    }
-
-    public Long getPaperId() {
-        return paper.getId();
-    }
+  public Long getPaperId() {
+    return paper.getId();
+  }
 }
-

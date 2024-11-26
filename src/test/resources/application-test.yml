@@ -1,0 +1,70 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testDB;MODE=MYSQL
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    show-sql: true
+    properties:
+      hibernate:
+        default_batch_fetch_size: 200
+        format_sql: true
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: test
+            authorization-grant-type: authorization_code
+            scope:
+              - profile_nickname
+              - profile_image
+              - account_email
+            redirect-uri: test
+        provider:
+          kakao:
+            authorization-uri: test
+            token-uri: test
+            user-info-uri: test
+            user-name-attribute: id
+    media-types:
+      html: text/html
+  web:
+    resources:
+      static-locations: classpath:/static/
+  main:
+    allow-bean-definition-overriding: true
+
+app:
+  jwt:
+    secret-key: "your-very-long-secret-key-that-is-at-least-64-characters-long-to-meet-512-bit-requirement"
+    access-expiration: 3600000
+    refresh-expiration: 604800000
+  properties:
+    mainDomain: localhost
+    frontendDomain: test
+    secure: true
+    cookie:
+      sameSite: "None"
+cors:
+  allowed-origins:
+    list:
+      test
+
+springdoc:
+  restdocs:
+    auto: true
+  api-docs:
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true

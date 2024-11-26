@@ -1,0 +1,687 @@
+openapi: 3.0.1
+info:
+  title: API 문서
+  description: RestDocs With Swagger
+  version: 0.0.1
+servers:
+- url: http://localhost:8080
+tags: []
+paths:
+  /news-paper:
+    get:
+      tags:
+      - News Paper API
+      summary: 신문 목록 조회
+      description: 신문 목록 조회
+      operationId: 신문 목록 조회
+      parameters:
+      - name: page
+        in: query
+        description: 페이지 번호
+        required: true
+        schema:
+          type: string
+      - name: size
+        in: query
+        description: 페이지 크기
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/news-paper469553110'
+              examples:
+                신문 목록 조회:
+                  value: "[ {\r\n  \"newsPaperId\" : 1,\r\n  \"title\" : \"Title 1\"\
+                    ,\r\n  \"link\" : \"http://example.com/1\",\r\n  \"image\" : \"\
+                    http://image.com/1\",\r\n  \"summary\" : \"Summary 1\",\r\n  \"\
+                    createdAt\" : \"2023-12-25T15:00:00\",\r\n  \"publishedAt\" :\
+                    \ \"2023-12-24T10:00:00\"\r\n}, {\r\n  \"newsPaperId\" : 2,\r\n\
+                    \  \"title\" : \"Title 2\",\r\n  \"link\" : \"http://example.com/2\"\
+                    ,\r\n  \"image\" : \"http://image.com/2\",\r\n  \"summary\" :\
+                    \ \"Summary 2\",\r\n  \"createdAt\" : \"2023-12-26T15:00:00\"\
+                    ,\r\n  \"publishedAt\" : \"2023-12-25T10:00:00\"\r\n} ]"
+  /news-paper/{id}:
+    get:
+      tags:
+      - News Paper API
+      summary: 신문 상세 조회
+      description: 신문 상세 조회
+      operationId: 신문 상세 조회
+      parameters:
+      - name: id
+        in: path
+        description: 조회할 신문 ID
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/news-paper-id-1047685679'
+              examples:
+                신문 상세 조회:
+                  value: "{\r\n  \"id\" : null,\r\n  \"title\" : \"Sample Title\"\
+                    ,\r\n  \"body\" : \"Sample Body\",\r\n  \"summary\" : \"Sample\
+                    \ Summary\",\r\n  \"link\" : \"http://example.com\",\r\n  \"linkHash\"\
+                    \ : \"sampleHash\",\r\n  \"image\" : \"http://image.com\",\r\n\
+                    \  \"source\" : \"Sample Source\",\r\n  \"publishedAt\" : \"2023-12-25T15:00:00\"\
+                    ,\r\n  \"createdAt\" : \"2023-12-24T10:00:00\",\r\n  \"updatedAt\"\
+                    \ : null,\r\n  \"deletedAt\" : null\r\n}"
+  /paper:
+    get:
+      tags:
+      - Paper API
+      summary: 페이퍼 목록 조회
+      description: 페이퍼 목록 조회
+      operationId: 페이퍼 목록 조회
+      parameters:
+      - name: page
+        in: query
+        description: 페이지 번호
+        required: true
+        schema:
+          type: string
+      - name: size
+        in: query
+        description: 페이지 크기
+        required: true
+        schema:
+          type: string
+      - name: orderBy
+        in: query
+        description: 정렬 기준
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/paper-936511330'
+              examples:
+                페이퍼 목록 조회:
+                  value: "[ {\r\n  \"paperId\" : 1,\r\n  \"content\" : \"Content 1\"\
+                    ,\r\n  \"newspaperLink\" : \"http://example1.com\",\r\n  \"tags\"\
+                    \ : [ \"tag1\" ],\r\n  \"newspaperSummary\" : \"Summary 1\",\r\
+                    \n  \"image\" : \"http://image1.com\",\r\n  \"createdAt\" : \"\
+                    2024-11-26T21:53:31.4709197\",\r\n  \"nickname\" : \"nickname1\"\
+                    ,\r\n  \"profileImage\" : \"profile1.jpg\"\r\n}, {\r\n  \"paperId\"\
+                    \ : 2,\r\n  \"content\" : \"Content 2\",\r\n  \"newspaperLink\"\
+                    \ : \"http://example2.com\",\r\n  \"tags\" : [ \"tag2\" ],\r\n\
+                    \  \"newspaperSummary\" : \"Summary 2\",\r\n  \"image\" : \"http://image2.com\"\
+                    ,\r\n  \"createdAt\" : \"2024-11-26T21:53:31.4709197\",\r\n  \"\
+                    nickname\" : \"nickname2\",\r\n  \"profileImage\" : \"profile2.jpg\"\
+                    \r\n} ]"
+    post:
+      tags:
+      - Paper API
+      summary: 페이퍼 생성
+      description: 페이퍼 생성
+      operationId: 페이퍼 생성
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/paper-1004516759'
+            examples:
+              페이퍼 생성:
+                value: "{\r\n  \"content\" : \"Sample Content\",\r\n  \"newspaperLink\"\
+                  \ : \"http://example.com\",\r\n  \"tags\" : [ \"tag1\", \"tag2\"\
+                  \ ],\r\n  \"newspaperSummary\" : \"Sample Summary\",\r\n  \"image\"\
+                  \ : \"http://example.com/image.jpg\"\r\n}"
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/paper-1665982679'
+              examples:
+                페이퍼 생성:
+                  value: "{\r\n  \"paperId\" : 1,\r\n  \"content\" : \"Sample Content\"\
+                    ,\r\n  \"newspaperLink\" : \"http://example.com\",\r\n  \"tags\"\
+                    \ : [ \"tag1\", \"tag2\" ],\r\n  \"newspaperSummary\" : \"Sample\
+                    \ Summary\",\r\n  \"image\" : \"http://example.com/image.jpg\"\
+                    ,\r\n  \"createdAt\" : \"2024-11-26T21:53:31.249598\",\r\n  \"\
+                    nickname\" : \"nickname\",\r\n  \"profileImage\" : \"profile.jpg\"\
+                    \r\n}"
+  /paper/likes:
+    get:
+      tags:
+      - Paper Like API
+      summary: 좋아요 상태 조회
+      description: 좋아요 상태 조회
+      operationId: 좋아요 상태 조회
+      parameters:
+      - name: paperIds
+        in: query
+        description: 좋아요 상태를 조회할 페이퍼 ID 목록
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/paper-likes486549215'
+              examples:
+                좋아요 상태 조회:
+                  value: "{ }"
+  /paper/{paperId}:
+    get:
+      tags:
+      - Paper API
+      summary: 페이퍼 조회
+      description: 페이퍼 조회
+      operationId: 페이퍼 조회
+      parameters:
+      - name: paperId
+        in: path
+        description: 조회할 페이퍼 ID
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/paper-1665982679'
+              examples:
+                페이퍼 조회:
+                  value: "{\r\n  \"paperId\" : 1,\r\n  \"content\" : \"Sample Content\"\
+                    ,\r\n  \"newspaperLink\" : \"http://example.com\",\r\n  \"tags\"\
+                    \ : [ \"tag1\", \"tag2\" ],\r\n  \"newspaperSummary\" : \"Sample\
+                    \ Summary\",\r\n  \"image\" : \"http://example.com/image.jpg\"\
+                    ,\r\n  \"createdAt\" : \"2024-11-26T21:53:31.5004894\",\r\n  \"\
+                    nickname\" : \"nickname\",\r\n  \"profileImage\" : \"profile.jpg\"\
+                    \r\n}"
+    delete:
+      tags:
+      - Paper API
+      summary: 페이퍼 삭제
+      description: 페이퍼 삭제
+      operationId: 페이퍼 삭제
+      parameters:
+      - name: paperId
+        in: path
+        description: 삭제할 페이퍼 ID
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/paper-paperId-316627400'
+              examples:
+                페이퍼 삭제:
+                  value: "{\r\n  \"message\" : \"Paper successfully deleted\"\r\n}"
+  /paper/{paperId}/likes:
+    post:
+      tags:
+      - Paper Like API
+      summary: 좋아요 추가
+      description: 좋아요 추가
+      operationId: 좋아요 추가
+      parameters:
+      - name: paperId
+        in: path
+        description: 좋아요를 추가할 페이퍼 ID
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/paper-paperId-likes152740649'
+              examples:
+                좋아요 추가:
+                  value: "{\r\n  \"statusCode\" : 200,\r\n  \"successful\" : true\r\
+                    \n}"
+    delete:
+      tags:
+      - Paper Like API
+      summary: 좋아요 삭제
+      description: 좋아요 삭제
+      operationId: 좋아요 삭제
+      parameters:
+      - name: paperId
+        in: path
+        description: 좋아요를 삭제할 페이퍼 ID
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/paper-paperId-likes152740649'
+              examples:
+                좋아요 삭제:
+                  value: "{\r\n  \"statusCode\" : 200,\r\n  \"successful\" : true\r\
+                    \n}"
+  /search:
+    get:
+      tags:
+      - Search API
+      summary: 검색 요청
+      description: 검색 요청
+      operationId: 검색 요청
+      parameters:
+      - name: keyword
+        in: query
+        description: 검색 키워드
+        required: true
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: 페이지 번호
+        required: true
+        schema:
+          type: string
+      - name: size
+        in: query
+        description: 페이지 크기
+        required: true
+        schema:
+          type: string
+      - name: orderBy
+        in: query
+        description: 정렬 기준
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/search195960006'
+              examples:
+                검색 요청:
+                  value: "{\r\n  \"papers\" : [ {\r\n    \"paperId\" : 1,\r\n    \"\
+                    content\" : \"Sample Content 1\",\r\n    \"newspaperLink\" : \"\
+                    http://example.com/1\",\r\n    \"tags\" : [ \"tag1\", \"tag2\"\
+                    \ ],\r\n    \"newspaperSummary\" : \"Sample Summary 1\",\r\n \
+                    \   \"image\" : \"http://example.com/image1.jpg\",\r\n    \"createdAt\"\
+                    \ : \"2024-11-26T21:53:35.7906903\",\r\n    \"nickname\" : \"\
+                    nickname1\",\r\n    \"profileImage\" : \"profile1.jpg\"\r\n  },\
+                    \ {\r\n    \"paperId\" : 2,\r\n    \"content\" : \"Sample Content\
+                    \ 2\",\r\n    \"newspaperLink\" : \"http://example.com/2\",\r\n\
+                    \    \"tags\" : [ \"tag3\", \"tag4\" ],\r\n    \"newspaperSummary\"\
+                    \ : \"Sample Summary 2\",\r\n    \"image\" : \"http://example.com/image2.jpg\"\
+                    ,\r\n    \"createdAt\" : \"2024-11-26T21:53:35.7906903\",\r\n\
+                    \    \"nickname\" : \"nickname2\",\r\n    \"profileImage\" : \"\
+                    profile2.jpg\"\r\n  } ]\r\n}"
+  /user:
+    get:
+      tags:
+      - User API
+      summary: 유저 정보 조회
+      description: 유저 정보 조회
+      operationId: 유저 정보 조회
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user1076627074'
+              examples:
+                유저 정보 조회:
+                  value: "{\r\n  \"userId\" : 1,\r\n  \"nickname\" : \"nickname\"\
+                    ,\r\n  \"profileImage\" : \"profile.jpg\"\r\n}"
+  /user/nickname:
+    patch:
+      tags:
+      - User API
+      summary: 닉네임 수정
+      description: 닉네임 수정
+      operationId: 닉네임 수정
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/user-nickname-2089665136'
+            examples:
+              닉네임 수정:
+                value: "{\r\n  \"nickname\" : \"newNickname\"\r\n}"
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user-nickname-861519297'
+              examples:
+                닉네임 수정:
+                  value: "{\r\n  \"userId\" : 1,\r\n  \"nickname\" : \"newNickname\"\
+                    ,\r\n  \"profileImage\" : \"profile.jpg\"\r\n}"
+  /user/profile-image:
+    patch:
+      tags:
+      - User API
+      summary: 프로필 이미지 수정
+      description: 프로필 이미지 수정
+      operationId: 프로필 이미지 수정
+      requestBody:
+        content:
+          application/json;charset=UTF-8:
+            schema:
+              $ref: '#/components/schemas/user-profile-image6337150'
+            examples:
+              프로필 이미지 수정:
+                value: "{\r\n  \"profileImage\" : \"new-profile.jpg\"\r\n}"
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user-profile-image1080197699'
+              examples:
+                프로필 이미지 수정:
+                  value: "{\r\n  \"userId\" : 1,\r\n  \"nickname\" : \"nickname\"\
+                    ,\r\n  \"profileImage\" : \"new-profile.jpg\"\r\n}"
+components:
+  schemas:
+    user-profile-image1080197699:
+      type: object
+      properties:
+        nickname:
+          type: string
+          description: 유저 닉네임
+        profileImage:
+          type: string
+          description: 변경된 유저 프로필 이미지
+        userId:
+          type: number
+          description: 유저 ID
+    user-nickname-2089665136:
+      type: object
+      properties:
+        nickname:
+          type: string
+          description: 변경할 닉네임
+    search195960006:
+      type: object
+      properties:
+        papers:
+          type: array
+          items:
+            type: object
+            properties:
+              createdAt:
+                type: string
+                description: 생성 시간
+              image:
+                type: string
+                description: 이미지 링크
+              newspaperLink:
+                type: string
+                description: 뉴스 링크
+              newspaperSummary:
+                type: string
+                description: 뉴스 요약
+              nickname:
+                type: string
+                description: 작성자 닉네임
+              profileImage:
+                type: string
+                description: 작성자 프로필 이미지
+              content:
+                type: string
+                description: 페이퍼 내용
+              paperId:
+                type: number
+                description: 페이퍼 ID
+              tags:
+                type: array
+                description: 태그 목록
+                items:
+                  oneOf:
+                  - type: object
+                  - type: boolean
+                  - type: string
+                  - type: number
+    paper-1004516759:
+      type: object
+      properties:
+        image:
+          type: string
+          description: 이미지 링크
+        newspaperLink:
+          type: string
+          description: 뉴스 링크
+        newspaperSummary:
+          type: string
+          description: 뉴스 요약
+        content:
+          type: string
+          description: 페이퍼 내용
+        tags:
+          type: array
+          description: 태그 목록
+          items:
+            oneOf:
+            - type: object
+            - type: boolean
+            - type: string
+            - type: number
+    news-paper469553110:
+      type: array
+      items:
+        type: object
+        properties:
+          summary:
+            type: string
+            description: 신문 요약
+          createdAt:
+            type: string
+            description: 생성 시간
+          image:
+            type: string
+            description: 이미지 URL
+          newsPaperId:
+            type: number
+            description: 신문 ID
+          publishedAt:
+            type: string
+            description: 발행 시간
+          link:
+            type: string
+            description: 신문 링크
+          title:
+            type: string
+            description: 신문 제목
+    user1076627074:
+      type: object
+      properties:
+        nickname:
+          type: string
+          description: 유저 닉네임
+        profileImage:
+          type: string
+          description: 유저 프로필 이미지
+        userId:
+          type: number
+          description: 유저 ID
+    paper-paperId-likes152740649:
+      type: object
+      properties:
+        successful:
+          type: boolean
+          description: 요청 성공 여부
+        statusCode:
+          type: number
+          description: HTTP 상태 코드
+    paper-936511330:
+      type: array
+      items:
+        type: object
+        properties:
+          createdAt:
+            type: string
+            description: 생성 시간
+          image:
+            type: string
+            description: 이미지 링크
+          newspaperLink:
+            type: string
+            description: 뉴스 링크
+          newspaperSummary:
+            type: string
+            description: 뉴스 요약
+          nickname:
+            type: string
+            description: 작성자 닉네임
+          profileImage:
+            type: string
+            description: 작성자 프로필 이미지
+          content:
+            type: string
+            description: 페이퍼 내용
+          paperId:
+            type: number
+            description: 페이퍼 ID
+          tags:
+            type: array
+            description: 태그 목록
+            items:
+              oneOf:
+              - type: object
+              - type: boolean
+              - type: string
+              - type: number
+    paper-paperId-316627400:
+      type: object
+      properties:
+        message:
+          type: string
+          description: 삭제 성공 메시지
+    user-nickname-861519297:
+      type: object
+      properties:
+        nickname:
+          type: string
+          description: 변경된 유저 닉네임
+        profileImage:
+          type: string
+          description: 유저 프로필 이미지
+        userId:
+          type: number
+          description: 유저 ID
+    paper-1665982679:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          description: 생성 시간
+        image:
+          type: string
+          description: 이미지 링크
+        newspaperLink:
+          type: string
+          description: 뉴스 링크
+        newspaperSummary:
+          type: string
+          description: 뉴스 요약
+        nickname:
+          type: string
+          description: 작성자 닉네임
+        profileImage:
+          type: string
+          description: 작성자 프로필 이미지
+        content:
+          type: string
+          description: 페이퍼 내용
+        paperId:
+          type: number
+          description: 페이퍼 ID
+        tags:
+          type: array
+          description: 태그 목록
+          items:
+            oneOf:
+            - type: object
+            - type: boolean
+            - type: string
+            - type: number
+    news-paper-id-1047685679:
+      type: object
+      properties:
+        linkHash:
+          type: string
+          description: 신문 링크 해시값
+        summary:
+          type: string
+          description: 신문 요약
+        createdAt:
+          type: string
+          description: 생성 시간
+        image:
+          type: string
+          description: 이미지 URL
+        deletedAt:
+          type: string
+          description: 생성 시간
+        publishedAt:
+          type: string
+          description: 발행 시간
+        link:
+          type: string
+          description: 신문 링크
+        source:
+          type: string
+          description: 신문 출처
+        id:
+          type: number
+          description: 신문 ID
+        body:
+          type: string
+          description: 신문 본문
+        title:
+          type: string
+          description: 신문 제목
+        updatedAt:
+          type: string
+          description: 생성 시간
+    user-profile-image6337150:
+      type: object
+      properties:
+        profileImage:
+          type: string
+          description: 변경할 프로필 이미지 URL
+    paper-likes486549215:
+      type: object
+
+  securitySchemes:
+    APIKey:
+      type: apiKey
+      name: access_token
+      in: cookie
+security:
+  - APIKey: []

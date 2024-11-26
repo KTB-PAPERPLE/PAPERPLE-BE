@@ -1,6 +1,3 @@
 package com.ktb.paperplebe.search.dto;
 
-public record SearchRequest(
-        String keyword
-) {
-}
+public record SearchRequest(String keyword) {}
