@@ -11,18 +11,18 @@ import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 @Configuration
 public class AwsS3Config {
 
-    @Value("${aws.credentials.accessKeyId}")
-    private String accessKeyId;
+  @Value("${aws.credentials.accessKeyId}")
+  private String accessKeyId;
 
-    @Value("${aws.credentials.secretAccessKey}")
-    private String secretAccessKey;
+  @Value("${aws.credentials.secretAccessKey}")
+  private String secretAccessKey;
 
-    @Bean
-    public S3Presigner presigner() {
-        AwsBasicCredentials awsCredentials = AwsBasicCredentials.create(accessKeyId, secretAccessKey);
-        return S3Presigner.builder()
-                .credentialsProvider(StaticCredentialsProvider.create(awsCredentials))
-                .region(Region.AP_NORTHEAST_2)
-                .build();
-    }
+  @Bean
+  public S3Presigner presigner() {
+    AwsBasicCredentials awsCredentials = AwsBasicCredentials.create(accessKeyId, secretAccessKey);
+    return S3Presigner.builder()
+        .credentialsProvider(StaticCredentialsProvider.create(awsCredentials))
+        .region(Region.AP_NORTHEAST_2)
+        .build();
+  }
 }

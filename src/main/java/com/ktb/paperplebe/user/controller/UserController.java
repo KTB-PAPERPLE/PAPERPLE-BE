@@ -15,31 +15,27 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 @RestController
 public class UserController {
-    private final UserService userService;
+  private final UserService userService;
 
-    @Secured(UserRole.ROLE_USER_VALUE)
-    @GetMapping()
-    public UserInfoResponse getUserInfo(
-            @AuthenticationPrincipal Long userId
-    ) {
-        return userService.getUserInfo(userId);
-    }
+  @Secured(UserRole.ROLE_USER_VALUE)
+  @GetMapping()
+  public UserInfoResponse getUserInfo(@AuthenticationPrincipal Long userId) {
+    return userService.getUserInfo(userId);
+  }
 
-    @Secured(UserRole.ROLE_USER_VALUE)
-    @PatchMapping("/nickname")
-    public UserInfoResponse updateNickname(
-            @RequestBody @Validated UserNicknameRequest nicknameRequest,
-            @AuthenticationPrincipal Long userId
-    ) {
-        return userService.updateNickname(userId, nicknameRequest.getNickname());
-    }
+  @Secured(UserRole.ROLE_USER_VALUE)
+  @PatchMapping("/nickname")
+  public UserInfoResponse updateNickname(
+      @RequestBody @Validated UserNicknameRequest nicknameRequest,
+      @AuthenticationPrincipal Long userId) {
+    return userService.updateNickname(userId, nicknameRequest.getNickname());
+  }
 
-    @Secured(UserRole.ROLE_USER_VALUE)
-    @PatchMapping("/profile-image")
-    public UserInfoResponse updateProfileImage(
-            @RequestBody UserProfileImageRequest profileImageRequest,
-            @AuthenticationPrincipal Long userId
-    ) {
-        return userService.updateProfileImage(userId, profileImageRequest.getProfileImage());
-    }
+  @Secured(UserRole.ROLE_USER_VALUE)
+  @PatchMapping("/profile-image")
+  public UserInfoResponse updateProfileImage(
+      @RequestBody UserProfileImageRequest profileImageRequest,
+      @AuthenticationPrincipal Long userId) {
+    return userService.updateProfileImage(userId, profileImageRequest.getProfileImage());
+  }
 }

@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 public class AwsController {
-    private final AwsService awsService;
+  private final AwsService awsService;
 
-    @GetMapping("/pre-signed-url/{filename}")
-    public ResponseEntity<String> getPreSignedUrl(@PathVariable String filename) {
-        return ResponseEntity.status(HttpStatus.OK).body(awsService.getPresignUrl(filename));
-    }
+  @GetMapping("/pre-signed-url/{filename}")
+  public ResponseEntity<String> getPreSignedUrl(@PathVariable String filename) {
+    return ResponseEntity.status(HttpStatus.OK).body(awsService.getPresignUrl(filename));
+  }
 }
