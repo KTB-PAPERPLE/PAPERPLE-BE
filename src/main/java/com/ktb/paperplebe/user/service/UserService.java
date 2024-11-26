@@ -44,7 +44,6 @@ public class UserService {
 
   private void validateDuplicatedNickname(String nickname) {
     if (existsByNickname(nickname)) {
-      System.out.println("@@@ here");
       throw new UserException(NICKNAME_DUPLICATED);
     }
   }
