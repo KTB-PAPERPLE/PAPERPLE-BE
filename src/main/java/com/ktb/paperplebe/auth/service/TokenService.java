@@ -45,6 +45,7 @@ public class TokenService {
   }
 
   public void saveRefreshToken(String refreshToken, Long userId) {
+    deleteRefreshToken(refreshToken);
     refreshTokenRepository.save(new RefreshToken(refreshToken, userId));
   }
 
