@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ktb.paperplebe.auth.config.jwt.RefreshTokenRepository;
+import com.ktb.paperplebe.auth.config.refreshtoken.RefreshTokenRepository;
 import com.ktb.paperplebe.auth.service.TokenService;
 import com.ktb.paperplebe.paper.dto.PaperResponse;
 import com.ktb.paperplebe.search.dto.SearchRequest;
@@ -46,7 +46,6 @@ class SearchControllerTest {
   @MockBean private SearchService searchService;
   @MockBean private TokenService tokenService;
   @MockBean private RefreshTokenRepository refreshTokenRepository;
-
 
   @Test
   @DisplayName("검색 요청 - 성공")

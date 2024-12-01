@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ktb.paperplebe.auth.config.jwt.RefreshTokenRepository;
+import com.ktb.paperplebe.auth.config.refreshtoken.RefreshTokenRepository;
 import com.ktb.paperplebe.auth.service.TokenService;
 import com.ktb.paperplebe.user.dto.UserInfoResponse;
 import com.ktb.paperplebe.user.dto.UserNicknameRequest;
@@ -44,7 +44,6 @@ public class UserControllerTest {
   @MockBean private UserService userService;
   @MockBean private TokenService tokenService;
   @MockBean private RefreshTokenRepository refreshTokenRepository;
-
 
   @Test
   @WithMockUser(roles = "USER")

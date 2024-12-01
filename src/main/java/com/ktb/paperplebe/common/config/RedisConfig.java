@@ -13,7 +13,7 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
-@EnableRedisRepositories(basePackages = "com.ktb.paperplebe.auth.config.jwt")
+@EnableRedisRepositories(basePackages = "com.ktb.paperplebe.auth.config.refreshtoken")
 @RequiredArgsConstructor
 public class RedisConfig {
 

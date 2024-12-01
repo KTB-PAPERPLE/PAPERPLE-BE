@@ -45,8 +45,10 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
       ResponseCookie accessTokenCookie =
           cookieService.createCookie(JwtUtil.ACCESS_TOKEN, accessToken);
+      log.info("accessTokenCookie: {}", accessTokenCookie);
       ResponseCookie refreshTokenCookie =
           cookieService.createCookie(JwtUtil.REFRESH_TOKEN, refreshToken);
+      log.info("refreshTokenCookie: {}", refreshTokenCookie);
 
       response.addHeader(SET_COOKIE, accessTokenCookie.toString());
       response.addHeader(SET_COOKIE, refreshTokenCookie.toString());
