@@ -114,12 +114,12 @@ paths:
                     ,\r\n  \"newspaperLink\" : \"http://example1.com\",\r\n  \"tags\"\
                     \ : [ \"tag1\" ],\r\n  \"newspaperSummary\" : \"Summary 1\",\r\
                     \n  \"image\" : \"http://image1.com\",\r\n  \"createdAt\" : \"\
-                    2024-12-02T02:45:28.935062\",\r\n  \"nickname\" : \"nickname1\"\
+                    2024-12-02T03:10:27.1081099\",\r\n  \"nickname\" : \"nickname1\"\
                     ,\r\n  \"profileImage\" : \"profile1.jpg\"\r\n}, {\r\n  \"paperId\"\
                     \ : 2,\r\n  \"content\" : \"Content 2\",\r\n  \"newspaperLink\"\
                     \ : \"http://example2.com\",\r\n  \"tags\" : [ \"tag2\" ],\r\n\
                     \  \"newspaperSummary\" : \"Summary 2\",\r\n  \"image\" : \"http://image2.com\"\
-                    ,\r\n  \"createdAt\" : \"2024-12-02T02:45:28.935062\",\r\n  \"\
+                    ,\r\n  \"createdAt\" : \"2024-12-02T03:10:27.1081099\",\r\n  \"\
                     nickname\" : \"nickname2\",\r\n  \"profileImage\" : \"profile2.jpg\"\
                     \r\n} ]"
     post:
@@ -145,14 +145,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/paper-paperId-1665982679'
+                $ref: '#/components/schemas/paper-1665982679'
               examples:
                 페이퍼 생성:
                   value: "{\r\n  \"paperId\" : 1,\r\n  \"content\" : \"Sample Content\"\
                     ,\r\n  \"newspaperLink\" : \"http://example.com\",\r\n  \"tags\"\
                     \ : [ \"tag1\", \"tag2\" ],\r\n  \"newspaperSummary\" : \"Sample\
                     \ Summary\",\r\n  \"image\" : \"http://example.com/image.jpg\"\
-                    ,\r\n  \"createdAt\" : \"2024-12-02T02:45:28.7358172\",\r\n  \"\
+                    ,\r\n  \"createdAt\" : \"2024-12-02T03:10:26.6966939\",\r\n  \"\
                     nickname\" : \"nickname\",\r\n  \"profileImage\" : \"profile.jpg\"\
                     \r\n}"
   /paper/likes:
@@ -199,14 +199,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/paper-paperId-1665982679'
+                $ref: '#/components/schemas/paper-1665982679'
               examples:
                 페이퍼 조회:
                   value: "{\r\n  \"paperId\" : 1,\r\n  \"content\" : \"Sample Content\"\
                     ,\r\n  \"newspaperLink\" : \"http://example.com\",\r\n  \"tags\"\
                     \ : [ \"tag1\", \"tag2\" ],\r\n  \"newspaperSummary\" : \"Sample\
                     \ Summary\",\r\n  \"image\" : \"http://example.com/image.jpg\"\
-                    ,\r\n  \"createdAt\" : \"2024-12-02T02:45:28.9642256\",\r\n  \"\
+                    ,\r\n  \"createdAt\" : \"2024-12-02T03:10:27.1426579\",\r\n  \"\
                     nickname\" : \"nickname\",\r\n  \"profileImage\" : \"profile.jpg\"\
                     \r\n}"
     delete:
@@ -327,13 +327,13 @@ paths:
                     http://example.com/1\",\r\n    \"tags\" : [ \"tag1\", \"tag2\"\
                     \ ],\r\n    \"newspaperSummary\" : \"Sample Summary 1\",\r\n \
                     \   \"image\" : \"http://example.com/image1.jpg\",\r\n    \"createdAt\"\
-                    \ : \"2024-12-02T02:45:32.8636253\",\r\n    \"nickname\" : \"\
+                    \ : \"2024-12-02T03:10:31.3045548\",\r\n    \"nickname\" : \"\
                     nickname1\",\r\n    \"profileImage\" : \"profile1.jpg\"\r\n  },\
                     \ {\r\n    \"paperId\" : 2,\r\n    \"content\" : \"Sample Content\
                     \ 2\",\r\n    \"newspaperLink\" : \"http://example.com/2\",\r\n\
                     \    \"tags\" : [ \"tag3\", \"tag4\" ],\r\n    \"newspaperSummary\"\
                     \ : \"Sample Summary 2\",\r\n    \"image\" : \"http://example.com/image2.jpg\"\
-                    ,\r\n    \"createdAt\" : \"2024-12-02T02:45:32.8636253\",\r\n\
+                    ,\r\n    \"createdAt\" : \"2024-12-02T03:10:31.3045548\",\r\n\
                     \    \"nickname\" : \"nickname2\",\r\n    \"profileImage\" : \"\
                     profile2.jpg\"\r\n  } ]\r\n}"
   /user:
@@ -594,7 +594,7 @@ components:
         userId:
           type: number
           description: 유저 ID
-    paper-paperId-1665982679:
+    paper-1665982679:
       type: object
       properties:
         createdAt:

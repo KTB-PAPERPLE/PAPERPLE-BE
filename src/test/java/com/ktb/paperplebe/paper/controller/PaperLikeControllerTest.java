@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ktb.paperplebe.auth.config.jwt.RefreshTokenRepository;
+import com.ktb.paperplebe.auth.config.refreshtoken.RefreshTokenRepository;
 import com.ktb.paperplebe.auth.service.TokenService;
 import com.ktb.paperplebe.paper.service.PaperLikeFacade;
 import com.ktb.paperplebe.paper.service.PaperLikeService;
@@ -42,7 +42,6 @@ public class PaperLikeControllerTest {
   @MockBean private PaperLikeService paperLikeService;
   @MockBean private TokenService tokenService;
   @MockBean private RefreshTokenRepository refreshTokenRepository;
-
 
   @Test
   @WithMockUser
