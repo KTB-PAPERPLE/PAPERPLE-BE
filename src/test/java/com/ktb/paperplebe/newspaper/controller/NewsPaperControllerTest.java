@@ -12,6 +12,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
+import com.ktb.paperplebe.auth.config.refreshtoken.RefreshTokenRepository;
+import com.ktb.paperplebe.auth.service.TokenService;
 import com.ktb.paperplebe.newsPaper.dto.NewsPaperResponse;
 import com.ktb.paperplebe.newsPaper.entity.NewsPaper;
 import com.ktb.paperplebe.newsPaper.service.NewsPaperService;
@@ -38,6 +40,8 @@ class NewsPaperControllerTest {
   @Autowired private MockMvc mockMvc;
 
   @MockBean private NewsPaperService newsPaperService;
+  @MockBean private TokenService tokenService;
+  @MockBean private RefreshTokenRepository refreshTokenRepository;
 
   @Test
   @DisplayName("신문 상세 조회 - 성공")

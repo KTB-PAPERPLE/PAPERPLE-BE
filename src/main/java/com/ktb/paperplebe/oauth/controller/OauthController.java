@@ -3,7 +3,7 @@ package com.ktb.paperplebe.oauth.controller;
 import static com.ktb.paperplebe.auth.config.jwt.JwtUtil.ACCESS_TOKEN;
 import static com.ktb.paperplebe.auth.config.jwt.JwtUtil.REFRESH_TOKEN;
 
-import com.ktb.paperplebe.auth.config.jwt.RefreshTokenRepository;
+import com.ktb.paperplebe.auth.config.refreshtoken.RefreshTokenRepository;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

@@ -114,12 +114,12 @@ paths:
                     ,\r\n  \"newspaperLink\" : \"http://example1.com\",\r\n  \"tags\"\
                     \ : [ \"tag1\" ],\r\n  \"newspaperSummary\" : \"Summary 1\",\r\
                     \n  \"image\" : \"http://image1.com\",\r\n  \"createdAt\" : \"\
-                    2024-11-26T21:53:31.4709197\",\r\n  \"nickname\" : \"nickname1\"\
+                    2024-12-02T03:10:27.1081099\",\r\n  \"nickname\" : \"nickname1\"\
                     ,\r\n  \"profileImage\" : \"profile1.jpg\"\r\n}, {\r\n  \"paperId\"\
                     \ : 2,\r\n  \"content\" : \"Content 2\",\r\n  \"newspaperLink\"\
                     \ : \"http://example2.com\",\r\n  \"tags\" : [ \"tag2\" ],\r\n\
                     \  \"newspaperSummary\" : \"Summary 2\",\r\n  \"image\" : \"http://image2.com\"\
-                    ,\r\n  \"createdAt\" : \"2024-11-26T21:53:31.4709197\",\r\n  \"\
+                    ,\r\n  \"createdAt\" : \"2024-12-02T03:10:27.1081099\",\r\n  \"\
                     nickname\" : \"nickname2\",\r\n  \"profileImage\" : \"profile2.jpg\"\
                     \r\n} ]"
     post:
@@ -152,7 +152,7 @@ paths:
                     ,\r\n  \"newspaperLink\" : \"http://example.com\",\r\n  \"tags\"\
                     \ : [ \"tag1\", \"tag2\" ],\r\n  \"newspaperSummary\" : \"Sample\
                     \ Summary\",\r\n  \"image\" : \"http://example.com/image.jpg\"\
-                    ,\r\n  \"createdAt\" : \"2024-11-26T21:53:31.249598\",\r\n  \"\
+                    ,\r\n  \"createdAt\" : \"2024-12-02T03:10:26.6966939\",\r\n  \"\
                     nickname\" : \"nickname\",\r\n  \"profileImage\" : \"profile.jpg\"\
                     \r\n}"
   /paper/likes:
@@ -206,7 +206,7 @@ paths:
                     ,\r\n  \"newspaperLink\" : \"http://example.com\",\r\n  \"tags\"\
                     \ : [ \"tag1\", \"tag2\" ],\r\n  \"newspaperSummary\" : \"Sample\
                     \ Summary\",\r\n  \"image\" : \"http://example.com/image.jpg\"\
-                    ,\r\n  \"createdAt\" : \"2024-11-26T21:53:31.5004894\",\r\n  \"\
+                    ,\r\n  \"createdAt\" : \"2024-12-02T03:10:27.1426579\",\r\n  \"\
                     nickname\" : \"nickname\",\r\n  \"profileImage\" : \"profile.jpg\"\
                     \r\n}"
     delete:
@@ -327,13 +327,13 @@ paths:
                     http://example.com/1\",\r\n    \"tags\" : [ \"tag1\", \"tag2\"\
                     \ ],\r\n    \"newspaperSummary\" : \"Sample Summary 1\",\r\n \
                     \   \"image\" : \"http://example.com/image1.jpg\",\r\n    \"createdAt\"\
-                    \ : \"2024-11-26T21:53:35.7906903\",\r\n    \"nickname\" : \"\
+                    \ : \"2024-12-02T03:10:31.3045548\",\r\n    \"nickname\" : \"\
                     nickname1\",\r\n    \"profileImage\" : \"profile1.jpg\"\r\n  },\
                     \ {\r\n    \"paperId\" : 2,\r\n    \"content\" : \"Sample Content\
                     \ 2\",\r\n    \"newspaperLink\" : \"http://example.com/2\",\r\n\
                     \    \"tags\" : [ \"tag3\", \"tag4\" ],\r\n    \"newspaperSummary\"\
                     \ : \"Sample Summary 2\",\r\n    \"image\" : \"http://example.com/image2.jpg\"\
-                    ,\r\n    \"createdAt\" : \"2024-11-26T21:53:35.7906903\",\r\n\
+                    ,\r\n    \"createdAt\" : \"2024-12-02T03:10:31.3045548\",\r\n\
                     \    \"nickname\" : \"nickname2\",\r\n    \"profileImage\" : \"\
                     profile2.jpg\"\r\n  } ]\r\n}"
   /user:
@@ -529,15 +529,6 @@ components:
         userId:
           type: number
           description: 유저 ID
-    paper-paperId-likes152740649:
-      type: object
-      properties:
-        successful:
-          type: boolean
-          description: 요청 성공 여부
-        statusCode:
-          type: number
-          description: HTTP 상태 코드
     paper-936511330:
       type: array
       items:
@@ -576,6 +567,15 @@ components:
               - type: boolean
               - type: string
               - type: number
+    paper-paperId-likes152740649:
+      type: object
+      properties:
+        successful:
+          type: boolean
+          description: 요청 성공 여부
+        statusCode:
+          type: number
+          description: HTTP 상태 코드
     paper-paperId-316627400:
       type: object
       properties:

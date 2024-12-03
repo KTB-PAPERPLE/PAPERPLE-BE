@@ -4,19 +4,21 @@ import static com.ktb.paperplebe.auth.config.jwt.JwtUtil.ACCESS_TOKEN;
 import static org.springframework.http.HttpHeaders.SET_COOKIE;
 
 import com.ktb.paperplebe.auth.config.jwt.JwtUtil;
-import com.ktb.paperplebe.auth.config.jwt.RefreshToken;
-import com.ktb.paperplebe.auth.config.jwt.RefreshTokenRepository;
+import com.ktb.paperplebe.auth.config.refreshtoken.RefreshToken;
+import com.ktb.paperplebe.auth.config.refreshtoken.RefreshTokenRepository;
 import com.ktb.paperplebe.common.service.CookieService;
 import com.ktb.paperplebe.user.entity.User;
 import com.ktb.paperplebe.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class TokenService {
   private final RefreshTokenRepository refreshTokenRepository;
   private final UserRepository userRepository;
@@ -45,6 +47,7 @@ public class TokenService {
   }
 
   public void saveRefreshToken(String refreshToken, Long userId) {
+    deleteRefreshToken(refreshToken);
     refreshTokenRepository.save(new RefreshToken(refreshToken, userId));
   }
 
