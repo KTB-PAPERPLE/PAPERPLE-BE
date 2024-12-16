@@ -6,6 +6,7 @@ on:
       - main
 
 jobs:
+  # 1. 빌드 작업
   build:
     runs-on: ubuntu-latest
 
@@ -13,6 +14,10 @@ jobs:
       # 1. 코드 및 서브모듈 체크아웃
       - name: Check out code with submodules
         uses: actions/checkout@v3
+        with:
+          submodules: recursive  # 모든 서브모듈 포함하여 가져오기
+          fetch-depth: 0         # 전체 히스토리 가져오기
+          token: ${{ secrets.GH_TOKEN }}
 
       # 1.2 JDK 17 설정
       - name: Set up JDK 17
@@ -61,7 +66,7 @@ jobs:
           chmod 600 private_key.pem
           
           # JAR 파일 EC2에 업로드
-          scp -i private_key.pem -o StrictHostKeyChecking=no PAPERPLE-BE-0.0.1-SNAPSHOT.jar $EC2_USER@$EC2_HOST:/home/$EC2_USER/PAPERPLE-BE.jar
+          scp -i private_key.pem -o StrictHostKeyChecking=no PAPERPLE-BE-0.0.1-SNAPSHOT.jar $EC2_USER@$EC2_HOST:/home/$EC2_USER/PAPERPLE-BE/app.jar
           
           # EC2에서 JAR 실행
           ssh -i private_key.pem -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST << 'EOF'
@@ -75,7 +80,7 @@ jobs:
           
             # 새 애플리케이션 실행
             echo "Starting new Java application..."
-            nohup java -jar /home/$EC2_USER/PAPERPLE-BE.jar > /home/$EC2_USER/app.log 2>&1 &
+            nohup java -jar /home/$EC2_USER/PAPERPLE-BE/app.jar > /home/$EC2_USER/PAPERPLE-BE/app.log 2>&1 &
           EOF
           
           # SSH 키 삭제
