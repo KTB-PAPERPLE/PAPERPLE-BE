@@ -72,7 +72,7 @@ jobs:
             # 실행 중인 애플리케이션 종료
             pkill -f app.jar || true
           
-            # 새 JAR 파일 실행
+            # 로그 경로를 DEPLOY_PATH로 변경
             nohup java -jar $DEPLOY_PATH/app.jar > $DEPLOY_PATH/app.log 2>&1 &
           EOF
           
