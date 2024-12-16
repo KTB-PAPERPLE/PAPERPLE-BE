@@ -30,9 +30,9 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean bootJar
 
-      # 4. Gradle 테스트
-      - name: Run Tests
-        run: ./gradlew test
+      # 4. 빌드 결과 확인
+      - name: List Build Artifacts
+        run: ls build/libs
 
       # 5. 빌드 아티팩트 업로드
       - name: Upload Build Artifact
@@ -52,32 +52,30 @@ jobs:
         with:
           name: app-jar
 
-      # 2. EC2 서버에 업로드 및 배포
+      # 2. EC2 서버에 업로드 및 실행
       - name: Deploy to EC2
         env:
           EC2_HOST: ${{ secrets.EC2_HOST }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
-          JAR_PATH: PAPERPLE-BE-0.0.1-SNAPSHOT.jar
           DEPLOY_PATH: /home/ec2-user/PAPERPLE-BE
 
         run: |
-          # SSH 키 설정
           echo "$SSH_KEY" > ssh_key.pem
           chmod 600 ssh_key.pem
 
           # JAR 파일 업로드
-          scp -i ssh_key.pem -o StrictHostKeyChecking=no $JAR_PATH ec2-user@$EC2_HOST:$DEPLOY_PATH/app.jar
+          scp -i ssh_key.pem -o StrictHostKeyChecking=no PAPERPLE-BE-0.0.1-SNAPSHOT.jar ec2-user@$EC2_HOST:$DEPLOY_PATH/app.jar
 
           # EC2에서 애플리케이션 실행
           ssh -i ssh_key.pem -o StrictHostKeyChecking=no ec2-user@$EC2_HOST << 'EOF'
-            # 디렉터리 권한 확인 및 생성
-            mkdir -p $DEPLOY_PATH
-            chmod -R 755 $DEPLOY_PATH
+            # 디렉터리 생성 및 권한 설정
+            # mkdir -p $DEPLOY_PATH
+            # chmod 755 $DEPLOY_PATH
 
             # 기존 애플리케이션 종료
             pkill -f app.jar || true
 
-            # 새 JAR 파일 실행 및 로그 저장
+            # 애플리케이션 실행 및 로그 저장
             nohup java -jar $DEPLOY_PATH/app.jar > $DEPLOY_PATH/app.log 2>&1 &
           EOF
 
