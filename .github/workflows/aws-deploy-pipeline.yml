@@ -1,4 +1,4 @@
-name: Aws Deploy Pipeline
+name: Build and Deploy to AWS
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,46 +24,56 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          cache: 'gradle'
+          cache: gradle
 
-      # 3. EC2 서버로 배포
+      # 3. Gradle 빌드
+      - name: Build with Gradle
+        run: ./gradlew clean bootJar
+
+      # 4. 빌드 테스트 (선택)
+      - name: Run Tests
+        run: ./gradlew test
+
+      # 5. 아티팩트 업로드
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-jar
+          path: build/libs/PAPERPLE-BE-0.0.1-SNAPSHOT.jar
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      # 1. 아티팩트 다운로드
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: app-jar
+
+      # 2. EC2 서버에 업로드 및 실행
       - name: Deploy to EC2
         env:
           EC2_HOST: ${{ secrets.EC2_HOST }}
           EC2_USER: ${{ secrets.EC2_USER }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
-          APP_PATH: /home/${{ secrets.EC2_USER }}/PAPERPLE-BE
-          JAR_PATH: /home/${{ secrets.EC2_USER }}/PAPERPLE-BE/build/libs/PAPERPLE-BE-0.0.1-SNAPSHOT.jar
+          JAR_PATH: PAPERPLE-BE-0.0.1-SNAPSHOT.jar
+          DEPLOY_PATH: /home/${{ secrets.EC2_USER }}/PAPERPLE-BE
 
         run: |
           # SSH 키 설정
           echo "$SSH_KEY" > ssh_key.pem
           chmod 600 ssh_key.pem
           
-          # EC2 서버에 SSH로 접속하여 애플리케이션 업데이트 및 빌드
+          # EC2에 JAR 파일 업로드 및 실행
+          scp -i ssh_key.pem -o StrictHostKeyChecking=no $JAR_PATH $EC2_USER@$EC2_HOST:$DEPLOY_PATH/app.jar
           ssh -i ssh_key.pem -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST << 'EOF'
-            # 작업 디렉토리로 이동
-            mkdir -p $APP_PATH
-            cd $APP_PATH
+            # 실행 중인 애플리케이션 종료
+            pkill -f app.jar || true
           
-            # 저장소가 없다면 클론, 있다면 pull
-            if [ ! -d ".git" ]; then
-              git clone ${{ github.server_url }}/${{ github.repository }}.git .
-            else
-              git pull origin main
-            fi
-          
-            # gradlew 권한 부여
-            chmod +x gradlew
-          
-            # 프로젝트 빌드
-            ./gradlew clean build
-          
-            # 기존 프로세스 종료
-            pkill -f 'PAPERPLE-BE-0.0.1-SNAPSHOT.jar' || true
-          
-            # 새 jar 실행
-            nohup java -jar $JAR_PATH > $APP_PATH/app.log 2>&1 &
+            # 새 JAR 파일 실행
+            nohup java -jar $DEPLOY_PATH/app.jar > $DEPLOY_PATH/app.log 2>&1 &
           EOF
           
           # SSH 키 삭제
