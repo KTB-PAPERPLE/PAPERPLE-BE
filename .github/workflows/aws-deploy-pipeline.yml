@@ -30,11 +30,11 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean bootJar
 
-      # 4. 빌드 테스트 (선택)
+      # 4. Gradle 테스트
       - name: Run Tests
         run: ./gradlew test
 
-      # 5. 아티팩트 업로드
+      # 5. 빌드 아티팩트 업로드
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v3
         with:
@@ -46,35 +46,40 @@ jobs:
     needs: build
 
     steps:
-      # 1. 아티팩트 다운로드
+      # 1. 빌드 아티팩트 다운로드
       - name: Download Build Artifact
         uses: actions/download-artifact@v3
         with:
           name: app-jar
 
-      # 2. EC2 서버에 업로드 및 실행
+      # 2. EC2 서버에 업로드 및 배포
       - name: Deploy to EC2
         env:
           EC2_HOST: ${{ secrets.EC2_HOST }}
-          EC2_USER: ${{ secrets.EC2_USER }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
           JAR_PATH: PAPERPLE-BE-0.0.1-SNAPSHOT.jar
-          DEPLOY_PATH: /home/${{ secrets.EC2_USER }}/PAPERPLE-BE
+          DEPLOY_PATH: /home/ec2-user/PAPERPLE-BE
 
         run: |
           # SSH 키 설정
           echo "$SSH_KEY" > ssh_key.pem
           chmod 600 ssh_key.pem
-          
-          # EC2에 JAR 파일 업로드 및 실행
-          scp -i ssh_key.pem -o StrictHostKeyChecking=no $JAR_PATH $EC2_USER@$EC2_HOST:$DEPLOY_PATH/app.jar
-          ssh -i ssh_key.pem -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST << 'EOF'
-            # 실행 중인 애플리케이션 종료
+
+          # JAR 파일 업로드
+          scp -i ssh_key.pem -o StrictHostKeyChecking=no $JAR_PATH ec2-user@$EC2_HOST:$DEPLOY_PATH/app.jar
+
+          # EC2에서 애플리케이션 실행
+          ssh -i ssh_key.pem -o StrictHostKeyChecking=no ec2-user@$EC2_HOST << 'EOF'
+            # 디렉터리 권한 확인 및 생성
+            mkdir -p $DEPLOY_PATH
+            chmod -R 755 $DEPLOY_PATH
+
+            # 기존 애플리케이션 종료
             pkill -f app.jar || true
-          
-            # 로그 경로를 DEPLOY_PATH로 변경
+
+            # 새 JAR 파일 실행 및 로그 저장
             nohup java -jar $DEPLOY_PATH/app.jar > $DEPLOY_PATH/app.log 2>&1 &
           EOF
-          
+
           # SSH 키 삭제
           rm ssh_key.pem
