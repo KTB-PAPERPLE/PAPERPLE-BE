@@ -98,6 +98,18 @@ tasks.processResources {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
 
+tasks.register('copyMainConfig', Copy) {
+    from file('./config')
+    include 'application.yml'
+    into 'src/main/resources'
+}
+tasks.register('copyDbConfig', Copy) {
+    from file('./config/yaml')
+    include 'application-db.yml'
+    into 'src/main/resources/yaml'
+}
+processResources.dependsOn(copyMainConfig, copyDbConfig)
+
 sourceSets {
     test {
         resources {
