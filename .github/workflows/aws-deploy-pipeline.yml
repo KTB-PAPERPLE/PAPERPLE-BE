@@ -58,7 +58,6 @@ jobs:
         env:
           EC2_HOST: ${{ secrets.EC2_HOST }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
-          EC2_USER: ${{ secrets.EC2_USER }}
 
         run: |
           # SSH 키 생성 및 권한 설정
@@ -66,10 +65,10 @@ jobs:
           chmod 600 private_key.pem
           
           # JAR 파일 EC2에 업로드
-          scp -i private_key.pem -o StrictHostKeyChecking=no PAPERPLE-BE-0.0.1-SNAPSHOT.jar $EC2_USER@$EC2_HOST:/home/$EC2_USER/PAPERPLE-BE/app.jar
+          scp -i private_key.pem -o StrictHostKeyChecking=no PAPERPLE-BE-0.0.1-SNAPSHOT.jar ec2-user@$EC2_HOST:/home/ec2-user/PAPERPLE-BE/app.jar
           
           # EC2에서 JAR 실행
-          ssh -i private_key.pem -o StrictHostKeyChecking=no $EC2_USER@$EC2_HOST << 'EOF'
+          ssh -i private_key.pem -o StrictHostKeyChecking=no ec2-user@$EC2_HOST << 'EOF'
             # 기존 Java 프로세스 종료
             if pgrep java; then
               echo "Stopping running Java application..."
@@ -80,7 +79,7 @@ jobs:
           
             # 새 애플리케이션 실행
             echo "Starting new Java application..."
-            nohup java -jar /home/$EC2_USER/PAPERPLE-BE/app.jar > /home/$EC2_USER/PAPERPLE-BE/app.log 2>&1 &
+            nohup java -jar /home/ec2-user/PAPERPLE-BE/app.jar > /home/ec2-user/PAPERPLE-BE/app.log 2>&1 &
           EOF
           
           # SSH 키 삭제
