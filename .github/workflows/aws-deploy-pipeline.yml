@@ -79,7 +79,7 @@ jobs:
           
             # 새 애플리케이션 실행
             echo "Starting new Java application..."
-            nohup java -jar /home/ec2-user/PAPERPLE-BE/app.jar > /home/ec2-user/PAPERPLE-BE/app.log 2>&1 &
+            nohup java -jar -Dspring.profiles.active=prod /home/ec2-user/PAPERPLE-BE/app.jar > /home/ec2-user/PAPERPLE-BE/app.log 2>&1 &
           EOF
           
           # SSH 키 삭제
